@@ -10,6 +10,13 @@
   font-style: normal;
 }
 
+::-webkit-scrollbar{
+	display: none;
+}
+
+a.active hr{
+	display: block;
+}
 
 
 * {

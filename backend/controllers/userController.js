@@ -21,7 +21,7 @@ const loginUser = async (req, res) => {
 			const token = createToken(user._id);
 			return res.json({ success: true, token });
     }else{
-			return res.status(400).json({ success: false, message: 'Invalid credentials' });
+			return res.json({ success: false, message: 'Invalid credentials' });
 		}
 
 	} catch (error) {
@@ -39,7 +39,7 @@ const registerUser = async (req, res) => {
 
 		// Validate input fields
 		if (!name || name.length < 3) {
-			return res.status(400).json({ success: false, message: 'Name should be at least 3 characters long.' });
+			return res.json({ success: false, message: 'Name should be at least 3 characters long.' });
 		}
 
 
@@ -94,7 +94,7 @@ const adminLogin = async (req, res) => {
 			const token = jwt.sign(email+password, process.env.JWT_SECRET)
       return res.json({ success: true, token });
     }else{
-      return res.status(400).json({ success: false, message: 'Invalid credentials' });
+      return res.json({ success: false, message: 'Invalid credentials' });
 		}
 	} catch (error) {
 		console.log(error);

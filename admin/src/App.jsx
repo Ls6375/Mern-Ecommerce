@@ -15,10 +15,12 @@ const App = () => {
     localStorage.getItem("token") ? localStorage.getItem("token") : ""
   );
 
+	
   useEffect(() => {
-    localStorage.setItem("token", token);
+		localStorage.setItem("token", token);
   }, [token]);
-
+	
+	console.log(localStorage.getItem("token"), 'token val :' , token);
   return (
     <div className="bg-gray-50 min-h-screen">
       <ToastContainer />
@@ -32,9 +34,9 @@ const App = () => {
             <Sidebar />
             <div className="w-[70%] mx-auto ml-[max(5vw,25px)] my-8 text-gray-600 text-base">
               <Routes>
-                <Route path="/add" token={token}  element={<Add />} />
-                <Route path="/list" token={token}  element={<List />} />
-                <Route path="/orders" token={token}  element={<Orders />} />
+                <Route path="/add"  element={<Add token={token}  />} />
+                <Route path="/list"   element={<List  token={token}  />} />
+                <Route path="/orders" element={<Orders  token={token}  />} />
               </Routes>
             </div>
           </div>

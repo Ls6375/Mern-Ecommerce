@@ -1,0 +1,8 @@
+# Run Admin
+Start-Process powershell -ArgumentList "cd admin; npm run dev"
+
+# Run Backend
+Start-Process powershell -ArgumentList "cd backend; npm run dev"
+
+# Run Client
+Start-Process powershell -ArgumentList "cd client; npm run dev"

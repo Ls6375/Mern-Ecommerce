@@ -20,7 +20,7 @@ productRouter.post('/add', adminAuth,
 	]), addProduct)
 productRouter.post('/remove', adminAuth, removeProduct)
 productRouter.post('/single', adminAuth, singleProduct)
-productRouter.get('/list', adminAuth, listProducts)
+productRouter.get('/list', listProducts)
 
 export default productRouter;
 

@@ -20,7 +20,6 @@ const App = () => {
 		localStorage.setItem("token", token);
   }, [token]);
 	
-	console.log(localStorage.getItem("token"), 'token val :' , token);
   return (
     <div className="bg-gray-50 min-h-screen">
       <ToastContainer />

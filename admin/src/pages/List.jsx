@@ -1,8 +1,39 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import {toast} from 'react-toastify'
+import { backendUrl } from '../App';
+
 
 const List = () => {
+
+	const [list, setList ] = useState([]);
+	
+	const fetchList = async ()=>{
+
+		try {
+      const response = await axios.get(backendUrl + '/api/product/list');
+      if (response.data.success) {
+				setList(response.data.products);
+			}else{
+				toast.error(response.data.message)
+			}
+    } catch (error) {
+      console.error('Error:', error);
+			toast.error(error.message);
+    }
+	}
+
+	useEffect(()=>{
+    fetchList();
+  }, [])
 	return (
-		<div>List</div>
+	<>
+	<p className='mb-2'>All Product List</p>
+	
+	<div className='hidden md:grid grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center py-1 px-2 border bg-gray-100 text-sm'>
+
+		
+	</div></>
 	)
 }
 

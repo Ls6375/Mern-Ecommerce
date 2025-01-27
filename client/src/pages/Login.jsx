@@ -1,13 +1,58 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { ShopContext } from "../context/ShopContext";
+import axios from 'axios';
+import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 function Login() {
-  const [currentState, setCurrentState] = useState("Signup");
+  const [currentState, setCurrentState] = useState("Login");
+	const {token, setToken, navigate, backendUrl} = useContext(ShopContext);
+	const [name, setName] = useState('');
+	const [password, setPassword] = useState('');
+	const [email, setEmail] = useState('');
 
+ 
 	const onSubmitHandler = async (event) =>{ 
 		event.preventDefault();
+		
+		try {
+			if (currentState === 'Signup') {
+				const response = await axios.post(backendUrl + '/api/user/register', {name, email, password});
+				console.log(response.data);
+				if (response.data.success) {
+					setToken(response.data.token);
+					localStorage.setItem('token', response.data.token);
+				}else{
+					toast.error(response.data.message);
+				}
+			}else{
+				const response = await axios.post(backendUrl + '/api/user/login', {email, password});
+				console.log('login', response.data);
+				
+				if (response.data.success) {
+					localStorage.setItem('token', response.data.token);
+					setToken(response.data.token);
+				}else{
+					toast.error(response.data.message);
+				}
+				
+			}
+		} catch (error) {
+			console.log(error);
+			toast.error(error.message);
+		}
+
 	}
+
+	useEffect(()=>{
+		if(token){
+			navigate("/");
+		}
+	}, [token])
+
+
   return (
-    <form className="flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-800">
+    <form onSubmit={onSubmitHandler} className="flex flex-col items-center w-[90%] sm:max-w-96 m-auto mt-14 gap-4 text-gray-800">
       <div className="inline-flex items-center gap-2 mb-2 mt-10">
         <p className="prata-regular text-3xl">{currentState}</p>
         <hr className="border-none h-[1.px] w-8 bg-gray-800" />
@@ -15,6 +60,7 @@ function Login() {
       {currentState === "Signup" ? (
         <input required
           type="text"
+					onChange={(e)=> setName(e.target.value) }
           className="w-full px-3 py-2 border-collapse border-gray-800"
           placeholder="Name"
           name=""
@@ -23,6 +69,7 @@ function Login() {
       ) : null}
       <input required
         type="email"
+				onChange={(e)=> setEmail(e.target.value) }
         className="w-full px-3 py-2 border-collapse border-gray-800"
         placeholder="Email"
         name=""
@@ -30,6 +77,7 @@ function Login() {
       />
       <input required
         type="password"
+				onChange={(e)=> setPassword(e.target.value) }
         className="w-full px-3 py-2 border-collapse border-gray-800"
         placeholder="Passowrd"
         name=""

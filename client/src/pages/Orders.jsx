@@ -41,7 +41,7 @@ function Orders() {
 
   useEffect(() => {
     loadOrderData();
-  }, []);
+  }, [token]);
 
   return (
     <div className=" border-t pt-16">
@@ -80,12 +80,11 @@ function Orders() {
                 <p className="mt-2">
                   Date:{" "}
                   <span className="text-gray-400">
-                    {" "}
                     {new Date(item.date).toDateString()}
                   </span>
                 </p>
                 <p className="mt-2">
-                  Payment:{" "}
+                  Payment: {item.payment ? 'Completed' : 'pending'}
                   <span className="text-gray-400"> {item.payment}</span>
                 </p>
               </div>

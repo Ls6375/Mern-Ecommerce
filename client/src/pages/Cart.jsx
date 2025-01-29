@@ -25,7 +25,7 @@ function Cart() {
       }
       setCartData(tempData);
     }
-		console.log(cartData);
+		console.log(Object.keys(cartItems));
   }, [cartItems, products]);
 
   return (
@@ -35,13 +35,15 @@ function Cart() {
       </div>
 
       <div>
+				{
+					(Object.keys(cartItems).length === 0 && cartItems.constructor === Object) &&
+					<p>Your Cart is Empty!</p>
+				}
         {cartData.map((item, index) => {
 
           const productData = products.find(
             (product) => product._id === item.__id
           );
-
-					
 
           return (
             <div
@@ -91,19 +93,23 @@ function Cart() {
         })}
       </div>
 
-      <div className="flex justify-end my20">
-        <div className="w-full sm:w-[450px]">
-          <CartTotal />
-          <div className="w-full text-end">
-            <button
-              onClick={() => navigate("/place-order")}
-              className="bg-black text-white text-sm my-8 px-8 py-3"
-            >
-              PROCEED TO CHECKOUT
-            </button>
-          </div>
-        </div>
-      </div>
+			{
+					(Object.keys(cartItems).length !== 0) &&
+					<div className="flex justify-end my20">
+						<div className="w-full sm:w-[450px]">
+							<CartTotal />
+							<div className="w-full text-end">
+								<button
+									onClick={() => navigate("/place-order")}
+									className="bg-black text-white text-sm my-8 px-8 py-3"
+								>
+									PROCEED TO CHECKOUT
+								</button>
+							</div>
+						</div>
+					</div>
+				}
+				
     </div>
   );
 }

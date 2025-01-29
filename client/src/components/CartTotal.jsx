@@ -9,7 +9,7 @@ export const CartTotal = () => {
 	return (
 		<div className="w-full">
 			<div className="text-2xl">
-				<Title text1={'CART'} text2={'T'} ></Title>
+				<Title text1={'CART'} text2={'Total'} ></Title>
 			</div>
 
 			<div className="flex flex-col gap-2 mt-2 text-sm">

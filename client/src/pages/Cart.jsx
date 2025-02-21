@@ -26,7 +26,10 @@ function Cart() {
       setCartData(tempData);
     }
 		console.log(Object.keys(cartItems));
-  }, [cartItems, products]);
+  }, [cartItems, products, updateQuantity]);
+
+	useEffect(()=>{
+	}, [cartData]);
 
   return (
     <div className="border-t pt-14">
@@ -35,8 +38,9 @@ function Cart() {
       </div>
 
       <div>
+			{console.log('CardData : ', cartData.length)}
 				{
-					(Object.keys(cartItems).length === 0 && cartItems.constructor === Object) &&
+					cartData.length === 0 &&
 					<p>Your Cart is Empty!</p>
 				}
         {cartData.map((item, index) => {
@@ -94,7 +98,7 @@ function Cart() {
       </div>
 
 			{
-					(Object.keys(cartItems).length !== 0) &&
+					cartData.length !== 0  &&
 					<div className="flex justify-end my20">
 						<div className="w-full sm:w-[450px]">
 							<CartTotal />
